@@ -4,19 +4,42 @@
     <title>Redirecting...</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
+      let redirectTarget = null;
+
+      function openApp() {
+        if (redirectTarget) {
+          window.location.href = redirectTarget;
+        }
+      }
+
       window.onload = function () {
         const params = new URLSearchParams(window.location.search);
-        const redirect = params.get('redirect');
-        if (redirect) {
-          window.location.href = redirect;
-        } else {
-          document.getElementById('status').textContent = 'No redirect target specified.';
-        }
+        redirectTarget = params.get('redirect');
+
+        // Auto attempt after short delay
+        setTimeout(() => {
+          if (redirectTarget) {
+            window.location.href = redirectTarget;
+          }
+        }, 500);
       };
     </script>
   </head>
-  <body style="font-family: Arial, sans-serif; text-align: center; padding: 50px;">
-    <h2>Redirecting you to the Center Church App...</h2>
-    <p id="status">If nothing happens, you can safely close this page.</p>
+  <body style="font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #f7f7f7;">
+    <h2 style="color: #333;">Redirecting you to the Center Church App...</h2>
+    <p style="color: #555;">If nothing happens, tap the button below:</p>
+    <button onclick="openApp()" style="
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+    ">
+      Open the App
+    </button>
   </body>
 </html>
