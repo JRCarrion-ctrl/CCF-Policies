@@ -218,7 +218,7 @@
 
                 <!-- Contact Form Mockup -->
                 <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-8">
-                    <form action="#" method="POST" onsubmit="event.preventDefault(); alert('This is a demo form. In a real environment, this would send an email.');">
+                    <form id="contact-form">
                         <div class="space-y-6">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-slate-700">Name</label>
@@ -331,6 +331,72 @@
                 });
                 */
             });
+        });
+    </script>
+
+    <script>
+        // --- Add this below your FAQ Accordion Logic ---
+
+        const contactForm = document.getElementById('contact-form');
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerText;
+
+        // REPLACE THIS WITH YOUR ACTUAL LAMBDA FUNCTION URL
+        // It will look like: https://abc123xyz.lambda-url.us-east-1.on.aws/
+        const LAMBDA_URL = "https://da2bt6vwgu7x3c7cqpjza6xxwe0aagiu.lambda-url.us-east-2.on.aws/"; 
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // 1. Get values
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message')
+            };
+
+            // 2. Validate simple client-side
+            if (!data.name || !data.email || !data.message) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            // 3. UI Loading State
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Sending...";
+            submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+
+            try {
+                // 4. Send to Lambda
+                const response = await fetch(LAMBDA_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // Note: We do NOT send the Hasura Secret here
+                    },
+                    body: JSON.stringify(data)
+                });
+    
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Success
+                    contactForm.reset();
+                    alert('Message sent successfully! We will get back to you shortly.');
+                } else {
+                    throw new Error(result.message || 'Failed to send');
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again later.');
+            } finally {
+                // 5. Reset UI
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+                submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+            }
         });
     </script>
 </body>
