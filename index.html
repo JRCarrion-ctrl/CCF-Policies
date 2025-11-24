@@ -1,45 +1,337 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Redirecting...</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - CCFrederick</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <script>
-      let redirectTarget = null;
-
-      function openApp() {
-        if (redirectTarget) {
-          window.location.href = redirectTarget;
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
         }
-      }
-
-      window.onload = function () {
-        const params = new URLSearchParams(window.location.search);
-        redirectTarget = params.get('redirect');
-
-        // Auto attempt after short delay
-        setTimeout(() => {
-          if (redirectTarget) {
-            window.location.href = redirectTarget;
-          }
-        }, 500);
-      };
     </script>
-  </head>
-  <body style="font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #f7f7f7;">
-    <h2 style="color: #333;">Redirecting you to the Center Church App...</h2>
-    <p style="color: #555;">If nothing happens, tap the button below:</p>
-    <button onclick="openApp()" style="
-      background: linear-gradient(135deg, #4f46e5, #6366f1);
-      color: white;
-      border: none;
-      padding: 14px 28px;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
-    ">
-      Open the App
-    </button>
-  </body>
+    <style>
+        /* Smooth scrolling for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* FAQ Transition */
+        .faq-content {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .faq-content.active {
+            opacity: 1;
+        }
+        
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+        .chevron.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <!-- App Icon Placeholder -->
+                    <span class="font-bold text-xl tracking-tight text-slate-900">CCFrederick</span>
+                </div>
+                <div class="hidden sm:flex sm:items-center sm:space-x-8">
+                    <a href="#faq" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">FAQ</a>
+                    <a href="#contact" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Contact</a>
+                    <a href="https://download.ccfapp.com" class="px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 shadow-sm transition-all">
+                        Download App
+                    </a>
+                </div>
+                <!-- Mobile menu button placeholder (simplified for this single page) -->
+                <div class="flex items-center sm:hidden">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-slate-500 hover:text-slate-700 p-2">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden sm:hidden bg-white border-t border-slate-100">
+            <div class="pt-2 pb-3 space-y-1 px-4">
+                <a href="#faq" class="block py-2 text-base font-medium text-slate-600 hover:text-brand-600">FAQ</a>
+                <a href="#contact" class="block py-2 text-base font-medium text-slate-600 hover:text-brand-600">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative bg-white overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:w-full lg:pb-28 xl:pb-32 pt-16 px-4 sm:px-6 lg:px-8 text-center lg:text-left">
+                <main class="mt-10 mx-auto max-w-7xl lg:mt-20 lg:flex lg:items-center lg:justify-between">
+                    <div class="lg:w-1/2">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-slate-900 sm:text-5xl md:text-6xl">
+                            <span class="block xl:inline">Hello! How can we</span>
+                            <span class="block text-brand-600">help you today?</span>
+                        </h1>
+                        <p class="mt-3 text-base text-slate-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                            Welcome to the official support center for CCFrederick. Find answers to common questions, troubleshoot issues, or get in touch with our team.
+                        </p>
+                        <div class="mt-8 sm:mt-10">
+                            <a href="#contact" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-brand-700 bg-brand-100 hover:bg-brand-200 md:py-4 md:text-lg md:px-10 transition-colors">
+                                <i class="fa-regular fa-envelope mr-2"></i> Email Support
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Hero Image / Illustration Placeholder -->
+                    <div class="mt-10 lg:mt-0 lg:w-1/2 flex justify-center lg:justify-end">
+                        <div class="bg-brand-50 rounded-2xl p-8 w-full max-w-md shadow-inner border border-brand-100">
+                            <div class="aspect-w-16 aspect-h-9 flex items-center justify-center text-brand-300">
+                                <i class="fa-solid fa-headset text-9xl opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 bg-slate-50">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-base text-brand-600 font-semibold tracking-wide uppercase">Common Questions</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+                    Frequently Asked Questions
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                    <button class="faq-toggle w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none focus:bg-slate-50 transition-colors">
+                        <span class="font-medium text-slate-900">How do I create an account?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 chevron text-sm"></i>
+                    </button>
+                    <div class="faq-content bg-slate-50 border-t border-slate-100">
+                        <div class="px-6 py-4 text-slate-600 leading-relaxed">
+                            Creating an account is simple. Open the CCFrederick app, either tap the bottom of the screen on the landing page, or try to access your profile and you will be prompted to log in/sign up. You will be redirected to https://auth.ccfapp.com where you can register an account by providing a name, email address, and password. If you are struggling to create an account please contact our support team.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                    <button class="faq-toggle w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none focus:bg-slate-50 transition-colors">
+                        <span class="font-medium text-slate-900">Is CCFrederick free to use?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 chevron text-sm"></i>
+                    </button>
+                    <div class="faq-content bg-slate-50 border-t border-slate-100">
+                        <div class="px-6 py-4 text-slate-600 leading-relaxed">
+                            Yes! Our app is free forever.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                    <button class="faq-toggle w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none focus:bg-slate-50 transition-colors">
+                        <span class="font-medium text-slate-900">How can I delete my data?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 chevron text-sm"></i>
+                    </button>
+                    <div class="faq-content bg-slate-50 border-t border-slate-100">
+                        <div class="px-6 py-4 text-slate-600 leading-relaxed">
+                            We value your privacy. To delete your data, go to More > Profile > Delete My Account, or More > Settings > Data & Delete Account > Delete My Account. This action is irreversible and will remove your data from our app immediately. Within 7 days, your account at auth.ccfapp.com will be deleted by a member of our support team unless you log into the app again. You may also contact our support team to delete your account immediately.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                    <button class="faq-toggle w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none focus:bg-slate-50 transition-colors">
+                        <span class="font-medium text-slate-900">The app keeps crashing on startup.</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 chevron text-sm"></i>
+                    </button>
+                    <div class="faq-content bg-slate-50 border-t border-slate-100">
+                        <div class="px-6 py-4 text-slate-600 leading-relaxed">
+                            Please ensure you are running the latest version of the app. If the problem persists, try uninstalling and reinstalling the app. If that doesn't work, please contact us using the form below.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white border-t border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Contact Info -->
+                <div>
+                    <h2 class="text-3xl font-extrabold text-slate-900">Still need help?</h2>
+                    <p class="mt-4 text-lg text-slate-500">
+                        Our support team is available Monday through Friday, 9am to 5pm EST. We typically respond within 24 hours.
+                    </p>
+                    
+                    <div class="mt-8 space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-brand-100 text-brand-600">
+                                    <i class="fa-solid fa-envelope text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-slate-900">Email</h3>
+                                <p class="mt-1 text-slate-500">dev@ccfapp.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Mockup -->
+                <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-8">
+                    <form action="#" method="POST" onsubmit="event.preventDefault(); alert('This is a demo form. In a real environment, this would send an email.');">
+                        <div class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-slate-700">Name</label>
+                                <div class="mt-1">
+                                    <input type="text" name="name" id="name" class="shadow-sm focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border-slate-300 rounded-md p-3 border" placeholder="Your name">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-slate-700">Email</label>
+                                <div class="mt-1">
+                                    <input type="email" name="email" id="email" class="shadow-sm focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border-slate-300 rounded-md p-3 border" placeholder="you@example.com">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-slate-700">Message</label>
+                                <div class="mt-1">
+                                    <textarea id="message" name="message" rows="4" class="shadow-sm focus:ring-brand-500 focus:border-brand-500 block w-full sm:text-sm border-slate-300 rounded-md p-3 border" placeholder="How can we help you?"></textarea>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition-colors">
+                                    Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white mt-auto">
+        <div class="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Brand -->
+                <div class="col-span-1">
+                    <span class="text-2xl font-bold tracking-tight">CCFrederick</span>
+                    <p class="mt-2 text-slate-400 text-sm">
+                        Download our app and get connected with your church community.
+                    </p>
+                </div>
+                
+                <!-- Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-400 tracking-wider uppercase">Support</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#faq" class="text-base text-slate-300 hover:text-white">FAQ</a></li>
+                        <li><a href="#contact" class="text-base text-slate-300 hover:text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Legal -->
+                <div>
+                    <h3 class="text-sm font-semibold text-slate-400 tracking-wider uppercase">Legal</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="https://privacy-policy.ccfapp.com" class="text-base text-slate-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="https://terms-and-conditions.ccfapp.com" class="text-base text-slate-300 hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-base text-slate-400">&copy; 2025 CCFrederick. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="https://www.centrocristianofrederick.com/" class="text-slate-400 hover:text-white">
+                        <span class="sr-only">Facebook</span>
+                        <i class="fa-brands fa-facebook text-xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/centrocristiano_frederick/" class="text-slate-400 hover:text-white">
+                        <span class="sr-only">Instagram</span>
+                        <i class="fa-brands fa-instagram text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // FAQ Accordion Logic
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const chevron = button.querySelector('.chevron');
+                
+                // Toggle current
+                button.classList.toggle('active');
+                
+                // Toggle rotation
+                chevron.classList.toggle('rotate');
+
+                if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                    content.style.maxHeight = '0px';
+                    content.classList.remove('active');
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.classList.add('active');
+                }
+
+                // Optional: Close others when one opens (Accordion style)
+                /*
+                document.querySelectorAll('.faq-toggle').forEach(otherButton => {
+                    if (otherButton !== button) {
+                        const otherContent = otherButton.nextElementSibling;
+                        const otherChevron = otherButton.querySelector('.chevron');
+                        otherContent.style.maxHeight = '0px';
+                        otherContent.classList.remove('active');
+                        otherChevron.classList.remove('rotate');
+                    }
+                });
+                */
+            });
+        });
+    </script>
+</body>
 </html>
